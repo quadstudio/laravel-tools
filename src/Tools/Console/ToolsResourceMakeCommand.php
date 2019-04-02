@@ -125,8 +125,6 @@ abstract class ToolsResourceMakeCommand extends Command
 
     abstract function getAsset();
 
-    abstract function getStub();
-
     /**
      * Export the authentication views.
      *
@@ -148,6 +146,8 @@ abstract class ToolsResourceMakeCommand extends Command
             );
         }
     }
+
+    abstract function getStub();
 
     public function exportControllers()
     {
@@ -207,9 +207,8 @@ abstract class ToolsResourceMakeCommand extends Command
     {
         foreach ($this->routes as $route => $mode) {
             file_put_contents(
-                base_path('routes/web.php'),
-                //file_get_contents(__DIR__ . '/stubs/routes/web.stub'),
-                file_get_contents($this->getStub() . 'routes/' . $route),
+                base_path('routes/' . $route . '.php'),
+                file_get_contents($this->getStub() . 'routes/' . $route . '.stub'),
                 $mode
             );
         }
